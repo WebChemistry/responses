@@ -29,12 +29,11 @@ class StringResponse implements IResponse {
 		$this->forceDownload = $forceDownload;
 	}
 
-	public function send(Nette\Http\IRequest $httpRequest, Nette\Http\IResponse $httpResponse) {
+	public function send(Nette\Http\IRequest $httpRequest, Nette\Http\IResponse $httpResponse): void {
 		$httpResponse->addHeader('Content-Type', $this->contentType);
 		$httpResponse->addHeader(
 			'Content-Disposition',
 			($this->forceDownload ? 'attachment;' : '') . 'filename="' . $this->fileName . '"');
-		$httpResponse->addHeader('Content-Length', mb_strlen($this->content));
 
 		echo $this->content;
 	}
